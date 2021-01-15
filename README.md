@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/UtilExe/Backend_Eksamen_Sem3.svg?branch=main)](https://travis-ci.com/UtilExe/Backend_Eksamen_Sem3)
+[![Build Status](https://travis-ci.com/UtilExe/Backend_Eksamen_Sem3.svg?branch=master)](https://travis-ci.com/UtilExe/Backend_Eksamen_Sem3)
 
 # Eksamensprojekt, 3 semester januar
 
