@@ -40,10 +40,9 @@ public class ActivityFacade {
           activity = new Activity(activityDTOobj.getExerciseType(), activityDTOobj.getDuration(), activityDTOobj.getDistance(), activityDTOobj.getComment());
         
       //  city = new CityInfo(cityDTOobj.getPrimærtnavn(), cityDTOobj.getVisueltcenter(), cityDTOobj.getKommuner(), cityDTOobj.convert(cityDTOobj.getEgenskaber()));
-       
-
   
-        city = new CityInfo("Navn", 1.0, "kom", cityDTO.getEgenskaber().getIndbyggerantal());
+  
+        city = new CityInfo(cityDTO.getName(), cityDTO.getVisueltcenterString(), cityDTO.getKommuneName(), cityDTO.getEgenskaber().getIndbyggerantal());
         
         user.addActivitys(activity);
         city.addActivitys(activity);

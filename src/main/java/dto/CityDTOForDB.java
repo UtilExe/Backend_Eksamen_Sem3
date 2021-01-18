@@ -6,7 +6,7 @@ public class CityDTOForDB {
 
     private String primærtNavn;
     private String name;
-    private double geocoordinates;
+    private String geocoordinates;
     private String municipality;
     private int population;
 
@@ -27,7 +27,7 @@ public class CityDTOForDB {
         return name;
     }
 
-    public double getGeocoordinates() {
+    public String getGeocoordinates() {
         return geocoordinates;
     }
 
@@ -51,7 +51,7 @@ public class CityDTOForDB {
         this.name = name;
     }
 
-    public void setGeocoordinates(double geocoordinates) {
+    public void setGeocoordinates(String geocoordinates) {
         this.geocoordinates = geocoordinates;
     }
 

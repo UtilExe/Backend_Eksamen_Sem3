@@ -75,10 +75,6 @@ public class Activity implements Serializable {
         this.comment = comment;
     }
 
-
-    
-    
-
     private Date getCurrentTimeOfDay() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         Date date = new Date();

@@ -18,7 +18,7 @@ public class HttpUtils {
         con.setRequestProperty("User-Agent", "server");
         con.setRequestProperty("Content-Type", "application/json");
         
-        Scanner scan = new Scanner(con.getInputStream());
+        Scanner scan = new Scanner(con.getInputStream(), "UTF-8");
         String jsonStr = "";
         while (scan.hasNext()) {
             jsonStr += scan.nextLine();

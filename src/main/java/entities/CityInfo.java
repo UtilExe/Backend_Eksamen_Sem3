@@ -26,7 +26,7 @@ public class CityInfo implements Serializable {
     private String name; 
     // hm, return type of double ok?
     @Column(name="geocoordinates")
-    private double geocoordinates;
+    private String geocoordinates;
     @Column(name="municipality")
     private String municipality; // kommune
     @Column(name="population")
@@ -45,7 +45,7 @@ public class CityInfo implements Serializable {
     public CityInfo() {
     }
 
-    public CityInfo(String name, double geocoordinates, String municipality, int population) {
+    public CityInfo(String name, String geocoordinates, String municipality, int population) {
         this.name = name;
         this.geocoordinates = geocoordinates;
         this.municipality = municipality;
@@ -74,7 +74,7 @@ public class CityInfo implements Serializable {
         return name;
     }
 
-    public double getGeocoordinates() {
+    public String getGeocoordinates() {
         return geocoordinates;
     }
 
