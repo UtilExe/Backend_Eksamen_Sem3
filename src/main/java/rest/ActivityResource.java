@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.ActivityDTO;
 import dto.CityDTO;
+import dto.CityDTOForDB;
 import dto.CombinedDTO;
 import dto.UserDTO;
 import dto.WeatherDTO;
@@ -55,13 +56,13 @@ public class ActivityResource {
     public String makeActivity(String json) throws API_Exception, InterruptedException, ExecutionException, TimeoutException {
         ActivityDTO activityDTO = gson.fromJson(json, ActivityDTO.class);
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
-        CityDTO cityDTO = gson.fromJson(json, CityDTO.class); // felt: primærtnavn
-        ActivityDTO result = facade.createActivity(activityDTO, userDTO);
-        return responseWithParallelFetch(ES, cityDTO, result);
+        CityDTO cityDTO = gson.fromJson(json, CityDTO.class);
+        CityDTOForDB cityDB = gson.fromJson(json, CityDTOForDB.class); // felt: primærtnavn
+        return responseWithParallelFetch(ES, cityDTO, activityDTO, userDTO, cityDB);
      //   return gson.toJson(facade.createActivity(activityDTO, userDTO));
     }
     
-    public static String responseWithParallelFetch(ExecutorService threadPool, CityDTO cityDTO, ActivityDTO activityResult) throws InterruptedException, ExecutionException, TimeoutException, API_Exception {
+    public static String responseWithParallelFetch(ExecutorService threadPool, CityDTO cityDTO, ActivityDTO requestActivityDTO, UserDTO userDTO, CityDTOForDB cityDB) throws InterruptedException, ExecutionException, TimeoutException, API_Exception {
         String cityName = cityDTO.getPrimærtnavn();
         Callable<CityDTO[]> callableCityTask = new Callable<CityDTO[]>() {
             @Override
@@ -78,17 +79,27 @@ public class ActivityResource {
                 WeatherDTO weatherDTO = gson.fromJson(json, WeatherDTO.class);
                 return weatherDTO;
             }
+        }; //   public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTOForDB cityDTOobj) {
+        Callable<ActivityDTO> callableFacade = new Callable<ActivityDTO>() {
+            @Override
+            public ActivityDTO call() throws IOException {
+                ActivityDTO activityTest = facade.createActivity(requestActivityDTO, userDTO, cityDB);
+                return activityTest;
+            }
         };
 
         Future<CityDTO[]> futureCity = threadPool.submit(callableCityTask);
         Future<WeatherDTO> futureDegree = threadPool.submit(callableWeatherTask);
-      //  Future<SimilarDTO> futureSimilar = threadPool.submit(similarTask);
+        Future<ActivityDTO> futureActivity = threadPool.submit(callableFacade);
 
         CityDTO[] cityData = futureCity.get(5555, TimeUnit.SECONDS);
         WeatherDTO degreeData = futureDegree.get(5555, TimeUnit.SECONDS);
-      //  SimilarDTO similar = futureSimilar.get(3, TimeUnit.SECONDS);
+        ActivityDTO similar = futureActivity.get(3, TimeUnit.SECONDS);
+        
+        
 
         CombinedDTO combinedDTO = new CombinedDTO(cityData, degreeData);
+        combinedDTO.getCityDTO();
         
         if(combinedDTO.isEmpty()) {
             throw new API_Exception("Not found..", 404);
