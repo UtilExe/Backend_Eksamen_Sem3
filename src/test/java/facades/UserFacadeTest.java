@@ -20,10 +20,10 @@ public class UserFacadeTest
 {
     private static EntityManagerFactory emf;
     private static UserFacade facade;
-    
-    private static User user = new User("user", "password");
-    private static User admin = new User("admin", "password");
-    private static User both = new User("user_admin", "password");
+
+    private static User user = new User("user", "password", "Kasper Henriksen", 20, 120);
+    private static User admin = new User("admin", "password", "Mads Frederik", 18, 85);
+    private static User both = new User("user_admin", "password",  "Line Madsen", 45, 60);
     
     public UserFacadeTest() {}
     
