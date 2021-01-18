@@ -86,6 +86,18 @@ public class User implements Serializable {
     public User(String userName) {
         this.userName = userName;
     }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
   
   
 

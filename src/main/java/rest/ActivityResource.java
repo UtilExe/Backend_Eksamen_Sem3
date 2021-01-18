@@ -88,7 +88,7 @@ public class ActivityResource {
         
         CombinedDTO combinedDTO = new CombinedDTO(cityData, degreeData);
         
-        if (cityData.length == 0 || degreeData == null) {
+        if (cityData.length == 0 || degreeData == null) { // If the external endpoints did not return any data
             throw new API_Exception("Der skete en fejl. Vi kunne ikke finde den indtastede data", 404);
         } else {
             String combinedJSON = gson.toJson(combinedDTO);
