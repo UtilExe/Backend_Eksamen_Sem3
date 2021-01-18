@@ -32,12 +32,11 @@ public class WeatherInfo implements Serializable {
     @OneToOne(mappedBy = "WeatherInfo")
     private Activity activity;
 
-    public WeatherInfo(String temperature, String skyText, String humidity, String windText, Activity activity) {
+    public WeatherInfo(String temperature, String skyText, String humidity, String windText) {
         this.temperature = temperature;
         this.skyText = skyText;
         this.humidity = humidity;
         this.windText = windText;
-        this.activity = activity;
     }
     public Long getId() {
         return id;

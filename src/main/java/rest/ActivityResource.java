@@ -87,14 +87,13 @@ public class ActivityResource {
         WeatherDTO degreeData = futureDegree.get(5555, TimeUnit.SECONDS);
         
         CombinedDTO combinedDTO = new CombinedDTO(cityData, degreeData);
-        combinedDTO.getCityDTO();
         
         if(combinedDTO.isEmpty()) {
             throw new API_Exception("Not found..", 404);
         } else {
             String combinedJSON = gson.toJson(combinedDTO);
-            facade.createActivity(activityDTO, userDTO, cityData[0]);
-
+            facade.createActivity(activityDTO, userDTO, cityData[0], degreeData);
+            
             return combinedJSON;
         }
         

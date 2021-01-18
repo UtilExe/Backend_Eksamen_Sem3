@@ -1,38 +1,19 @@
 
 package dto;
 
+import dto.DTOForCherry.WeatherResponseDTO;
+
 
 public class WeatherDTO {
     
     private Object object;
     // Response date
-    private Object CurrentData;
-   /* private String skyText;
-    private String humidity;
-    private String windText;
+    private WeatherResponseDTO CurrentData;
 
-    public WeatherDTO(String temperature, String skyText, String humidity, String windText) {
-        this.temperature = temperature;
-        this.skyText = skyText;
-        this.humidity = humidity;
-        this.windText = windText;
+    public WeatherResponseDTO getCurrentData() {
+        return CurrentData;
     }
-
-    public String getTemperature() {
-        return temperature;
-    }
-
-    public String getSkyText() {
-        return skyText;
-    }
-
-    public String getHumidity() {
-        return humidity;
-    }
-
-    public String getWindText() {
-        return windText;
-    }
-    */
+ 
+    
     
 }
