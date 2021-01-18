@@ -33,7 +33,7 @@ public class CityInfo implements Serializable {
     private int population;
     
     @OneToMany(mappedBy = "CityInfo", cascade = CascadeType.PERSIST)
-    private List<Activity> activitys = new ArrayList<>();
+    private List<Activity> activitys;
     
     public void addActivitys(Activity activityObj) {
         this.activitys.add(activityObj);
@@ -50,6 +50,7 @@ public class CityInfo implements Serializable {
         this.geocoordinates = geocoordinates;
         this.municipality = municipality;
         this.population = population;
+        this.activitys = new ArrayList();
     }
     
     

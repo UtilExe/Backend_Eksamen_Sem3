@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 public class ActivityFacade {
@@ -31,7 +32,7 @@ public class ActivityFacade {
         }
         return instance;
     }
-
+    
     // As a member I would like to be able to create an exercise activity so that I can save it for future purposes. 
     public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTO cityDTO, WeatherDTO weatherDTO) throws API_Exception {
         EntityManager em = emf.createEntityManager();
@@ -47,37 +48,61 @@ public class ActivityFacade {
             activity = new Activity(activityDTOobj.getExerciseType(), activityDTOobj.getDuration(), activityDTOobj.getDistance(), activityDTOobj.getComment());
 
             city = new CityInfo(cityDTO.getName(), cityDTO.getVisueltcenterString(), cityDTO.getKommuneName(), cityDTO.getEgenskaber().getIndbyggerantal());
-            
+
             // Check if it already exists
             TypedQuery<CityInfo> cityQuery = em.createQuery("SELECT c from CityInfo c WHERE c.name = :name", CityInfo.class)
-                    .setParameter("name", cityDTO.getName());
+                    .setParameter("name", cityDTO.getName()).setMaxResults(1);
+            CityInfo tryNow = null;
+            if (!cityQuery.getResultList().isEmpty())
+            {
+               tryNow = cityQuery.getSingleResult();
+            tryNow.getId();
+            }
+       //     Long test = cityok[0];
+
             List<CityInfo> cityList = new ArrayList<>();
             
+
             cityList = cityQuery.getResultList();
-            if (!cityList.isEmpty()) {
-                /* Måske ikke nødvendigt ligefrem at trigger en Exception. 
-                   Afhænger af, om brugeren skal kunne se den eller blot skal få resultatet ud, uden at persistere til DB'en */
-                // throw new API_Exception("Byen findes allerede");
-                return new ActivityDTO(activity);
-            }
             
+
             WeatherInfo weather = new WeatherInfo(
-                    weatherDTO.getCurrentData().getTemperature(), 
-                    weatherDTO.getCurrentData().getSkyText(), 
-                    weatherDTO.getCurrentData().getHumidity(), 
+                    weatherDTO.getCurrentData().getTemperature(),
+                    weatherDTO.getCurrentData().getSkyText(),
+                    weatherDTO.getCurrentData().getHumidity(),
                     weatherDTO.getCurrentData().getWindText()
             );
-            
+
             user.addActivitys(activity);
-            city.addActivitys(activity);
-       
-            activity.setWeatherInfo(weather);
 
-            em.persist(user);
-            em.persist(city);
-            em.persist(weather);
+            if (!cityList.isEmpty()) {
+                activity.setWeatherInfo(weather);
+                em.persist(user);
+                em.persist(weather);
+                em.flush();
+                
+            //    city.addActivitys(activity);
+         //       activity.setCityInfo(city);
+  
+                Query q = em.createNativeQuery("UPDATE activity SET city_id = ? WHERE weatherinfo_id = ?");
+                q.setParameter(1, tryNow.getId()).setParameter(2, weather.getId());
+                q.executeUpdate();
+                
+          //      em.persist(city);
+                
+                 em.getTransaction().commit();
+            } else {
 
-            em.getTransaction().commit();
+                city.addActivitys(activity);
+
+                activity.setWeatherInfo(weather);
+
+                em.persist(user);
+
+                em.persist(city);
+                em.persist(weather);
+                em.getTransaction().commit();
+            }
         } finally {
             em.close();
         }
