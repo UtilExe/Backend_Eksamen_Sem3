@@ -33,6 +33,28 @@ public class ActivityFacade {
         return instance;
     }
     
+    public List<ActivityDTO> getAllActivites() throws API_Exception {
+      EntityManager em = emf.createEntityManager();
+        List<Activity> allActivities = new ArrayList();
+        List<ActivityDTO> allActivtiesDTO = new ArrayList();
+        
+        try {
+            allActivities = em.createNamedQuery("Activity.getAllRows").getResultList();
+            
+            if (allActivities.isEmpty()) {
+                throw new API_Exception("Not found", 404);
+            }
+
+            for (Activity activity : allActivities) {
+                allActivtiesDTO.add(new ActivityDTO(activity));
+            }
+
+            return allActivtiesDTO;
+        } finally {
+            em.close();
+        }
+    }
+
     // As a member I would like to be able to create an exercise activity so that I can save it for future purposes. 
     public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTO cityDTO, WeatherDTO weatherDTO) throws API_Exception {
         EntityManager em = emf.createEntityManager();
@@ -49,22 +71,18 @@ public class ActivityFacade {
 
             city = new CityInfo(cityDTO.getName(), cityDTO.getVisueltcenterString(), cityDTO.getKommuneName(), cityDTO.getEgenskaber().getIndbyggerantal());
 
-            // Check if it already exists
+            // Check if City already exists. We don't parse ID on this object, so must check it this way to avoid a rewrite with including ID.
             TypedQuery<CityInfo> cityQuery = em.createQuery("SELECT c from CityInfo c WHERE c.name = :name", CityInfo.class)
                     .setParameter("name", cityDTO.getName()).setMaxResults(1);
             CityInfo tryNow = null;
-            if (!cityQuery.getResultList().isEmpty())
-            {
-               tryNow = cityQuery.getSingleResult();
-            tryNow.getId();
+            if (!cityQuery.getResultList().isEmpty()) {
+                tryNow = cityQuery.getSingleResult();
+                tryNow.getId();
             }
-       //     Long test = cityok[0];
 
             List<CityInfo> cityList = new ArrayList<>();
-            
 
             cityList = cityQuery.getResultList();
-            
 
             WeatherInfo weather = new WeatherInfo(
                     weatherDTO.getCurrentData().getTemperature(),
@@ -79,26 +97,21 @@ public class ActivityFacade {
                 activity.setWeatherInfo(weather);
                 em.persist(user);
                 em.persist(weather);
-                em.flush();
-                
-            //    city.addActivitys(activity);
-         //       activity.setCityInfo(city);
-  
+                em.flush(); // execute to db instantly.
+
                 Query q = em.createNativeQuery("UPDATE activity SET city_id = ? WHERE weatherinfo_id = ?");
                 q.setParameter(1, tryNow.getId()).setParameter(2, weather.getId());
                 q.executeUpdate();
-                
-          //      em.persist(city);
-                
-                 em.getTransaction().commit();
+
+                // city.addActivitys(activity);
+                // activity.setCityInfo(city);
+                // em.persist(city);
+                em.getTransaction().commit();
             } else {
-
                 city.addActivitys(activity);
-
                 activity.setWeatherInfo(weather);
-
+                
                 em.persist(user);
-
                 em.persist(city);
                 em.persist(weather);
                 em.getTransaction().commit();

@@ -49,6 +49,13 @@ public class ActivityResource {
     
     public static final ActivityFacade facade = ActivityFacade.getActivityFacade(EMF);
     
+    @Path("all")
+    @GET
+    @Consumes({MediaType.APPLICATION_JSON})
+    public String getAllActities() throws API_Exception {
+        return gson.toJson(facade.getAllActivites());
+    }
+    
     @Path("create")
     @POST
     @Produces({MediaType.APPLICATION_JSON})

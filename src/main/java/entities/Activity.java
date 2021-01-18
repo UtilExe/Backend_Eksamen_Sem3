@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +22,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "activity")
+@NamedQuery(name = "Activity.getAllRows", query = "SELECT a FROM Activity a")
 public class Activity implements Serializable {
 
     private static final long serialVersionUID = 1L;
