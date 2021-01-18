@@ -34,12 +34,12 @@ public class ActivityFacade {
             User user = em.find(User.class, userDTOobj.getUsername());
           //  activity = em.find(Activity.class, activityDTOobj.getId());
           activity = new Activity(activityDTOobj.getExerciseType(), activityDTOobj.getDuration(), activityDTOobj.getDistance(), activityDTOobj.getComment());
-        /*    Book book = em.createQuery(
-                    "SELECT b from Book b WHERE b.title = :title", Book.class).
-                    setParameter("title", bookTitle).getSingleResult();*/
+        
         
         user.addActivitys(activity);
+        
         em.persist(user);
+        
         
             
             em.getTransaction().commit();

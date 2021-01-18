@@ -75,6 +75,10 @@ public class Activity implements Serializable {
         this.comment = comment;
     }
 
+
+    
+    
+
     private Date getCurrentTimeOfDay() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         Date date = new Date();
@@ -126,6 +130,10 @@ public class Activity implements Serializable {
     // used in CityInfo entity
     public void setCityInfo(CityInfo cityInfo) {
         this.cityInfo = cityInfo;
+    }
+    
+    public void setWeatherInfo(WeatherInfo weatherInfo) {
+        this.weatherInfo = weatherInfo;
     }
 
 }

@@ -27,4 +27,11 @@ public class Helper {
             
         return input;
     }
+    
+    public static boolean responseEqualsNull(Object obj) {
+        if (obj.equals("")) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -118,4 +118,13 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+    public List<Activity> getActivitys() {
+        return activitys;
+    }
+
+    public void setActivitys(List<Activity> activitys) {
+        this.activitys = activitys;
+    }
+
+  
 }

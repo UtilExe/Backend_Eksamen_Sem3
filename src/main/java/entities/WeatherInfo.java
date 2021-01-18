@@ -50,5 +50,13 @@ public class WeatherInfo implements Serializable {
     public WeatherInfo() {
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
     
 }
