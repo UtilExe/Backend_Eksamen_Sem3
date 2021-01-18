@@ -2,6 +2,7 @@ package facades;
 
 import dto.ActivityDTO;
 import dto.CityDTO;
+import dto.CityDTOForDB;
 import dto.UserDTO;
 import entities.Activity;
 import entities.CityInfo;
@@ -27,7 +28,7 @@ public class ActivityFacade {
     }
 
     // As a member I would like to be able to create an exercise activity so that I can save it for future purposes. 
-    public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTO cityDTOobj) {
+    public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTO cityDTO) {
         EntityManager em = emf.createEntityManager();
        Activity activity;
        CityInfo city;
@@ -40,9 +41,9 @@ public class ActivityFacade {
         
       //  city = new CityInfo(cityDTOobj.getPrimærtnavn(), cityDTOobj.getVisueltcenter(), cityDTOobj.getKommuner(), cityDTOobj.convert(cityDTOobj.getEgenskaber()));
        
-      // Test because I could not convert from Object array to the specific data-type fields.
-      // consider making a check if it already exists... (which it does cause it's constant data).
-        city = new CityInfo("Navn", 1.0, "Kommune", 5533);
+
+  
+        city = new CityInfo("Navn", 1.0, "kom", cityDTO.getEgenskaber().getIndbyggerantal());
         
         user.addActivitys(activity);
         city.addActivitys(activity);

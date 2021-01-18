@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.ActivityDTO;
 import dto.CityDTO;
+import dto.CityDTOForDB;
 import dto.CombinedDTO;
 import dto.UserDTO;
 import dto.WeatherDTO;
@@ -56,10 +57,11 @@ public class ActivityResource {
         ActivityDTO activityDTO = gson.fromJson(json, ActivityDTO.class);
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
         CityDTO cityDTO = gson.fromJson(json, CityDTO.class);
-        return responseWithParallelFetch(ES, cityDTO, activityDTO, userDTO);
+        CityDTOForDB cityDB = gson.fromJson(json, CityDTOForDB.class);
+        return responseWithParallelFetch(ES, cityDTO, activityDTO, userDTO, cityDB);
     }
     
-    public static String responseWithParallelFetch(ExecutorService threadPool, CityDTO cityDTO, ActivityDTO activityDTO, UserDTO userDTO) throws InterruptedException, ExecutionException, TimeoutException, API_Exception {
+    public static String responseWithParallelFetch(ExecutorService threadPool, CityDTO cityDTO, ActivityDTO activityDTO, UserDTO userDTO, CityDTOForDB cityDB) throws InterruptedException, ExecutionException, TimeoutException, API_Exception {
         String cityName = cityDTO.getPrimærtnavn();
         Callable<CityDTO[]> callableCityTask = new Callable<CityDTO[]>() {
             @Override
@@ -91,7 +93,7 @@ public class ActivityResource {
             throw new API_Exception("Not found..", 404);
         } else {
             String combinedJSON = gson.toJson(combinedDTO);
-            facade.createActivity(activityDTO, userDTO, cityDTO);
+            facade.createActivity(activityDTO, userDTO, cityData[0]);
 
             return combinedJSON;
         }

@@ -19,29 +19,26 @@ public class CityDTO {
     }
     
     // Response data
- //   private String primærtnavn;
-    private Object[] kommuner; // kommune
+    private TestDTO[] kommuner; // kommune
     private TestDTO egenskaber; 
-    private int indbyggerantal;
-   // private int population;
     private Object[] visueltcenter; // visueltcenter
 
     public String getName() {
         return primærtnavn;
     }
-    
-    public Object[] getKommuner() {
-        return kommuner;
-    }
 
     public Object[] getVisueltcenter() {
         return visueltcenter;
+    } 
+
+    public TestDTO getEgenskaber() {
+        return egenskaber;
     }
 
-    public int getEgenskaber() {
-        return egenskaber.getIndbyggerantal();
+    public TestDTO[] getKommuner() {
+        return kommuner;
     }
-
+    
     
     
 }
