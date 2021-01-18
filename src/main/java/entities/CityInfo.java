@@ -34,6 +34,13 @@ public class CityInfo implements Serializable {
     
     @OneToMany(mappedBy = "CityInfo", cascade = CascadeType.PERSIST)
     private List<Activity> activitys = new ArrayList<>();
+    
+    public void addActivitys(Activity activityObj) {
+        this.activitys.add(activityObj);
+        if (activityObj != null) {
+            activityObj.setCityInfo(this);
+        }
+    }
 
     public CityInfo() {
     }

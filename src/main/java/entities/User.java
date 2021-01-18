@@ -49,6 +49,13 @@ public class User implements Serializable {
   
   @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
   private List<Activity> activitys = new ArrayList<>();
+  
+   public void addActivitys(Activity activityObj) {
+        this.activitys.add(activityObj);
+        if (activityObj != null) {
+            activityObj.setUser(this);
+        }
+    }
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -75,6 +82,12 @@ public class User implements Serializable {
     this.age = age;
     this.weight = weight;
   }
+
+    public User(String userName) {
+        this.userName = userName;
+    }
+  
+  
 
 
   public String getUserName() {

@@ -1,7 +1,9 @@
 package facades;
 
 import dto.ActivityDTO;
+import dto.UserDTO;
 import entities.Activity;
+import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -21,21 +23,30 @@ public class ActivityFacade {
         }
         return instance;
     }
-/*
+
     // As a member I would like to be able to create an exercise activity so that I can save it for future purposes. 
-    public ActivityDTO createActivity(ActivityDTO activityDTOObject) {
+    public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj) {
         EntityManager em = emf.createEntityManager();
        Activity activity;
         try {
             em.getTransaction().begin();
             
-            
+            User user = em.find(User.class, userDTOobj.getUsername());
+          //  activity = em.find(Activity.class, activityDTOobj.getId());
+          activity = new Activity(activityDTOobj.getExerciseType(), activityDTOobj.getDuration(), activityDTOobj.getDistance(), activityDTOobj.getComment());
+        /*    Book book = em.createQuery(
+                    "SELECT b from Book b WHERE b.title = :title", Book.class).
+                    setParameter("title", bookTitle).getSingleResult();*/
+        
+        user.addActivitys(activity);
+        em.persist(user);
+        
             
             em.getTransaction().commit();
         } finally {
             em.close();
         }
         return new ActivityDTO(activity);
-    }*/
+    }
    
 }
