@@ -68,7 +68,6 @@ public class ActivityFacade {
                     weatherDTO.getCurrentData().getWindText()
             );
             
-         //   WeatherInfo weather = new WeatherInfo("123", "test", "test", "test");
             user.addActivitys(activity);
             city.addActivitys(activity);
        

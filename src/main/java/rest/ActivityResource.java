@@ -88,8 +88,8 @@ public class ActivityResource {
         
         CombinedDTO combinedDTO = new CombinedDTO(cityData, degreeData);
         
-        if(combinedDTO.isEmpty()) {
-            throw new API_Exception("Not found..", 404);
+        if (cityData.length == 0 || degreeData == null) {
+            throw new API_Exception("Der skete en fejl. Vi kunne ikke finde den indtastede data", 404);
         } else {
             String combinedJSON = gson.toJson(combinedDTO);
             facade.createActivity(activityDTO, userDTO, cityData[0], degreeData);
