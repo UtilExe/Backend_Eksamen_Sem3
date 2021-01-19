@@ -21,6 +21,17 @@ public class UserDTO {
         this.weight = user.getWeight();
     }
 
+    public UserDTO(String username, String userPass, String passwordCheck, String fullName, int age, double weight) {
+        this.username = username;
+        this.userPass = userPass;
+        this.passwordCheck = passwordCheck;
+        this.fullName = fullName;
+        this.age = age;
+        this.weight = weight;
+    }
+    
+    
+
     public String getUsername() {
         return username;
     }

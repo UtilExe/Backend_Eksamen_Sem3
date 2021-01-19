@@ -20,7 +20,6 @@ public class ActivityDTO {
     
 
     public ActivityDTO(Activity activityO) {
-        this.id = activityO.getId();
         this.comment = activityO.getComment();
         this.distance = activityO.getDistance();
         this.duration = activityO.getDuration();
@@ -33,6 +32,15 @@ public class ActivityDTO {
         Format f = new SimpleDateFormat("hh:mm");
         String currentTimeOfDay = f.format(new Date());
         return currentTimeOfDay; // currently is one hour behind as it returns in GMT, and we're in GMT +1
+    }
+
+    public ActivityDTO(String comment, double duration, double distance, String exerciseType) {
+        this.comment = comment;
+        this.duration = duration;
+        this.distance = distance;
+        this.exerciseDate = new Date();
+        this.timeOfDay = getCurrentTimeOfDay();
+        this.exerciseType = exerciseType;
     }
     
     
