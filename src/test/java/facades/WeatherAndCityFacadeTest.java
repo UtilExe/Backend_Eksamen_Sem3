@@ -31,7 +31,7 @@ public class WeatherAndCityFacadeTest {
 
     private static EntityManagerFactory emf;
     private static WeatherAndCityFacade facade;
-    
+
     private static Activity activity;
     private static CityInfo city;
     private static WeatherInfo weather;
@@ -64,32 +64,31 @@ public class WeatherAndCityFacadeTest {
             em.createQuery("delete from CityInfo").executeUpdate();
             em.createQuery("delete from WeatherInfo").executeUpdate();
             em.createQuery("delete from Activity").executeUpdate();
-            
-            
+
             em.createQuery("delete from Role").executeUpdate();
             em.createQuery("delete from User").executeUpdate();
-            
+
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "password", "Kasper Henriksen", 20, 120);
             UserDTO userDTO = new UserDTO("userTc", "userPass", "passwordChceked", "Kasper Henriksen", 20, 120);
             user.addRole(userRole);
-            
+
             User admin = new User("admin", "password", "Mads Frederik", 18, 85);
             admin.addRole(adminRole);
             User both = new User("user_admin", "password", "Line Madsen", 45, 60);
             both.addRole(userRole);
             both.addRole(adminRole);
-            
+
             activity = new Activity("Jogging", 60, 40, "A nice jog");
             city = new CityInfo("Hvidovre", "9.85832042, 56.76802916", "Rødovre", 6066);
             weather = new WeatherInfo("5", "Solrigt", "44", "5 m/s Nord");
             userDTO = new UserDTO("trying", "userPass", "passwordChceked", "Kasper Henriksen", 20, 120);
-            
+
             user.addActivitys(activity);
             city.addActivitys(activity);
             activity.setWeatherInfo(weather);
-                
+
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(user);
@@ -97,7 +96,7 @@ public class WeatherAndCityFacadeTest {
             em.persist(both);
             em.persist(city);
             em.persist(weather);
-            
+
             //System.out.println("Saved test data to database");
             em.getTransaction().commit();
         } finally {
@@ -111,27 +110,25 @@ public class WeatherAndCityFacadeTest {
         int expResult = 1;
         List<WeatherResponseDTO> result = facade.getWeatherDataForUser(userDTO);
         assertEquals(expResult, result.size());
-        
+
         // Second test: validate if the comment of the element is the same as activity original activity Object
         for (WeatherResponseDTO c : result) {
-           assertTrue(c.getHumidity().equals(weather.getHumidity()));
-       }
+            assertTrue(c.getHumidity().equals(weather.getHumidity()));
+        }
     }
-    
+
     @Disabled
     @Test
     public void testGetAllCities() throws API_Exception {
         int expResult = 1;
-        
-        
+
         List<CityDTOForDB> result = facade.getCityDataForUser(userDTO);
         assertEquals(expResult, result.size());
-        
+
         // Second test: validate if the comment of the element is the same as activity original activity Object
         for (CityDTOForDB c : result) {
-           assertTrue(c.getPrimærtNavn().equals(city.getName()));
-       }
+            assertTrue(c.getPrimærtNavn().equals(city.getName()));
+        }
     }
-    
-    
+
 }

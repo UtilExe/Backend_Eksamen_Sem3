@@ -28,6 +28,7 @@ public class Activity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -45,16 +46,16 @@ public class Activity implements Serializable {
     @Column(name = "exercise_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date exerciseDate;
-    @Column(name = "exercise_type", nullable = false)
+    @Column(name = "exercise_type", nullable = false, length = 100)
     private String exerciseType;
     @Column(name = "time_of_day", nullable = false)
     @Temporal(TemporalType.TIME)
     private Date timeOfDay; // hm
     @Column(name = "duration", nullable = false)
     private double duration;
-    @Column(name = "distance", nullable = false) // perhaps specify "meters"
+    @Column(name = "distance", nullable = false) // perhaps specify "km"
     private double distance;
-    @Column(name = "comment", nullable = true)
+    @Column(name = "comment", nullable = true, length = 255)
     private String comment;
 
     public Long getId() {

@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
 
-
 public class UserFacadeOtherTest {
 
     private static EntityManagerFactory emf;
@@ -50,16 +49,15 @@ public class UserFacadeOtherTest {
         try {
             em.getTransaction().begin();
             //Delete existing users and roles to get a "fresh" database
-            
+
             em.createNativeQuery("delete from user_roles").executeUpdate();
             em.createNativeQuery("delete from roles").executeUpdate();
-            
+
             em.createNativeQuery("delete from activity").executeUpdate();
             em.createNativeQuery("delete from users").executeUpdate();
             em.createNativeQuery("delete from cityinfo").executeUpdate();
             em.createNativeQuery("delete from weatherinfo").executeUpdate();
-    
-    
+
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "password", "Kasper Henriksen", 20, 120);

@@ -20,13 +20,13 @@ public class WeatherInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
-    @Column(name="temperature")
+    @Column(name="temperature", length = 50)
     private String temperature;
-    @Column(name="sky_text") // himmelstatus
+    @Column(name="sky_text", length = 50) // himmelstatus
     private String skyText;
-    @Column(name="humidity") // fugtighed
+    @Column(name="humidity", length = 50) // fugtighed
     private String humidity;
-    @Column(name="windText")
+    @Column(name="windText", length = 50)
     private String windText;
     
     @OneToOne(mappedBy = "WeatherInfo")

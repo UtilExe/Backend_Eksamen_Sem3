@@ -24,11 +24,5 @@ public class CombinedDTO {
             System.out.println("Combined" + cityDTO1);
         }
     }
-
-    @Override
-    public String toString() {
-        return "CombinedDTO{" + "cityDTO=" + cityDTO + ", weatherDTO=" + weatherDTO + '}';
-    }
-    
-    
+ 
 }

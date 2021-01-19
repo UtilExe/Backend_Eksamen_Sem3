@@ -70,7 +70,7 @@ public class ActivityResource {
     }
     
     public static String responseWithParallelFetch(ExecutorService threadPool, CityDTO cityDTO, ActivityDTO activityDTO, UserDTO userDTO, CityDTOForDB cityDB) throws InterruptedException, ExecutionException, TimeoutException, API_Exception {
-        String cityName = cityDTO.getPrimærtnavn();
+        String cityName = cityDTO.getPrimærtnavn().substring(0, 1).toUpperCase() + cityDTO.getPrimærtnavn().substring(1); // first letter to uppercase, to prevent external api from not returning response
         Callable<CityDTO[]> callableCityTask = new Callable<CityDTO[]>() {
             @Override
             public CityDTO[] call() throws IOException {
@@ -104,7 +104,6 @@ public class ActivityResource {
             
             return combinedJSON;
         }
-        
     }
 
 }

@@ -22,12 +22,12 @@ public class CityInfo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name="city_name")
+    @Column(name="city_name", length = 50)
     private String name; 
     // hm, return type of double ok?
-    @Column(name="geocoordinates")
+    @Column(name="geocoordinates", length = 150)
     private String geocoordinates;
-    @Column(name="municipality")
+    @Column(name="municipality", length = 150)
     private String municipality; // kommune
     @Column(name="population")
     private int population;

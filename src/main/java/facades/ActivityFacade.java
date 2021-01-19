@@ -56,7 +56,6 @@ public class ActivityFacade {
         }
     }
 
-    // As a member I would like to be able to create an exercise activity so that I can save it for future purposes. 
     public ActivityDTO createActivity(ActivityDTO activityDTOobj, UserDTO userDTOobj, CityDTO cityDTO, WeatherDTO weatherDTO) throws API_Exception {
         EntityManager em = emf.createEntityManager();
         Activity activity;
