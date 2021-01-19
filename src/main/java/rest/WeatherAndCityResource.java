@@ -50,7 +50,9 @@ public class WeatherAndCityResource {
     
     @Path("weatheruser")
     @POST
+    @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"user"})
     public String getWeatherDataForUser(String username) throws API_Exception {
         UserDTO userDTO = gson.fromJson(username, UserDTO.class);
         return gson.toJson(facade.getWeatherDataForUser(userDTO));
@@ -58,7 +60,9 @@ public class WeatherAndCityResource {
     
     @Path("cityuser")
     @POST
+    @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"user"})
     public String getCityDataForUser(String username) throws API_Exception {
         UserDTO userDTO = gson.fromJson(username, UserDTO.class);
         return gson.toJson(facade.getCityDataForUser(userDTO));

@@ -59,7 +59,8 @@ public class ActivityResource {
     
     @Path("all")
     @GET
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"user"})
     public String getAllActities() throws API_Exception {
         return gson.toJson(facade.getAllActivites());
     }
@@ -68,6 +69,7 @@ public class ActivityResource {
     @POST
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
+    @RolesAllowed({"user"})
     public String makeActivity(String json) throws API_Exception, InterruptedException, ExecutionException, TimeoutException {
         ActivityDTO activityDTO = gson.fromJson(json, ActivityDTO.class);
         UserDTO userDTO = gson.fromJson(json, UserDTO.class);
