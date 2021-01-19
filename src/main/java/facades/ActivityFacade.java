@@ -34,6 +34,16 @@ public class ActivityFacade {
         return instance;
     }
     
+    public long getActivityCount() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            long activityCount = (long) em.createQuery("SELECT COUNT(a) FROM Activity a").getSingleResult();
+            return activityCount;
+        } finally {
+            em.close();
+        }
+    }
+    
     public List<ActivityDTO> getAllActivites() throws API_Exception {
       EntityManager em = emf.createEntityManager();
         List<Activity> allActivities = new ArrayList();

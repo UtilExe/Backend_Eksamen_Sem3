@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import static org.hamcrest.Matchers.equalTo;
@@ -119,6 +120,17 @@ public class RegisterResourceTest {
                 .body(jsonRequest)
                 .when().post("/register").then()
                 .statusCode(200);
+    }
+    
+    // Should have been in ActivityResource, and should have had persisted data
+    @Test
+    public void testActivityCount() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/activity/count").then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("count", equalTo(0));   
     }
 
 }

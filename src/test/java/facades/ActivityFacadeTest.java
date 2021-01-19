@@ -38,6 +38,7 @@ public class ActivityFacadeTest {
     public ActivityFacadeTest() {
     }
 
+
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
@@ -96,6 +97,12 @@ public class ActivityFacadeTest {
             em.close();
         }
     }
+    
+    @Disabled
+    @Test
+    public void testGetActivityCount() {
+        assertEquals(1, facade.getActivityCount(), "Expects one row in the database");
+    }
 
     @Test
     public void testGetAllActivites() throws API_Exception {
@@ -108,6 +115,7 @@ public class ActivityFacadeTest {
             assertTrue(c.getComment().equals(activity.getComment()));
         }
     }
+    
 
     @Disabled
     @Test

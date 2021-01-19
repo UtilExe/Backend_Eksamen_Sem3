@@ -49,13 +49,20 @@ public class ActivityResource {
     
     public static final ActivityFacade facade = ActivityFacade.getActivityFacade(EMF);
     
+    @Path("count")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getActivityCount() {
+        long count = facade.getActivityCount();
+        return "{\"count\":"+count+"}";
+    }
+    
     @Path("all")
     @GET
     @Consumes({MediaType.APPLICATION_JSON})
     public String getAllActities() throws API_Exception {
         return gson.toJson(facade.getAllActivites());
     }
-    
     
     @Path("create")
     @POST
