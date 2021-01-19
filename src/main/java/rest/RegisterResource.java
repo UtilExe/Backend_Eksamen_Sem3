@@ -40,9 +40,9 @@ public class RegisterResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String registerTwo(String jsonPerson) throws AuthenticationException, API_Exception {
+    public Response register(String jsonPerson) throws AuthenticationException, API_Exception {
         UserDTO userDTO = gson.fromJson(jsonPerson,UserDTO.class);
         facade.createUser(userDTO.getUsername(), userDTO.getUserPass(), userDTO.getPasswordCheck(), userDTO.getFullName(), userDTO.getAge(), userDTO.getWeight());
-         return gson.toJson(userDTO.getUsername());
+         return Response.ok(new Gson().toJson(userDTO.getUsername())).build();
     }
 }
