@@ -56,6 +56,7 @@ public class ActivityResource {
         return gson.toJson(facade.getAllActivites());
     }
     
+    
     @Path("create")
     @POST
     @Produces({MediaType.APPLICATION_JSON})

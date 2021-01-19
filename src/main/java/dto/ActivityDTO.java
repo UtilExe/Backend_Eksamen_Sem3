@@ -1,6 +1,8 @@
 package dto;
 
 import entities.Activity;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -13,19 +15,27 @@ public class ActivityDTO {
     private double duration;
     private double distance;
     private Date exerciseDate;
-    private Date timeOfDay;
+    private String timeOfDay;
     private String exerciseType;
+    
 
     public ActivityDTO(Activity activityO) {
         this.id = activityO.getId();
         this.comment = activityO.getComment();
         this.distance = activityO.getDistance();
         this.duration = activityO.getDuration();
-        this.exerciseDate = activityO.getExerciseDate();
-        this.timeOfDay = activityO.getTimeOfDay();
+        this.exerciseDate = new Date();
+        this.timeOfDay = getCurrentTimeOfDay();
         this.exerciseType = activityO.getExerciseType();
     }
 
+    private String getCurrentTimeOfDay() {
+        Format f = new SimpleDateFormat("hh:mm");
+        String currentTimeOfDay = f.format(new Date());
+        return currentTimeOfDay; // currently is one hour behind as it returns in GMT, and we're in GMT +1
+    }
+    
+    
 
     public String getComment() {
         return comment;
@@ -39,7 +49,7 @@ public class ActivityDTO {
         return exerciseDate;
     }
 
-    public Date getTimeOfDay() {
+    public String getTimeOfDay() {
         return timeOfDay;
     }
 

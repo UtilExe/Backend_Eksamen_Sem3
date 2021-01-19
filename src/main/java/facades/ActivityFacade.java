@@ -3,6 +3,7 @@ package facades;
 import dto.ActivityDTO;
 import dto.CityDTO;
 import dto.CityDTOForDB;
+import dto.DTOForCherry.WeatherResponseDTO;
 import dto.UserDTO;
 import dto.WeatherDTO;
 import entities.Activity;

@@ -17,6 +17,14 @@ public class CityDTOForDB {
         this.population = city.getPopulation();
     }
 
+    public CityDTOForDB(String name, String geocoordinates, String municipality, int population) {
+        this.name = name;
+        this.geocoordinates = geocoordinates;
+        this.municipality = municipality;
+        this.population = population;
+    }
+
+    
 
     public CityDTOForDB() {
     }
@@ -63,5 +71,6 @@ public class CityDTOForDB {
         this.population = population;
     }
 
+    
 
 }

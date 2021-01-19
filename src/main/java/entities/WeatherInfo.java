@@ -57,5 +57,21 @@ public class WeatherInfo implements Serializable {
         this.activity = activity;
     }
 
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public String getSkyText() {
+        return skyText;
+    }
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public String getWindText() {
+        return windText;
+    }
+
     
 }
